@@ -1,4 +1,4 @@
-class ShoppingCart {
+class Cart {
 
     constructor() {
         this.items = []; // Array to hold items in the cart
