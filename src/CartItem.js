@@ -15,3 +15,5 @@ class CartItem {
     return singlePrice * this.quantity;
   }
 }
+
+export default CartItem;

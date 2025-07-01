@@ -4,3 +4,5 @@ class Choice {
         this.price = price; // Price of the choice
     }
 }
+
+export default Choice;

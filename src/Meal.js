@@ -1,4 +1,4 @@
-import { Options } from './Options.js';
+import Options from './Options.js';
 
 class Meal {
     constructor(name, description, options, price) {
@@ -10,3 +10,5 @@ class Meal {
 
     // Total price is calculated in the Cart class
 }
+
+export default Meal;

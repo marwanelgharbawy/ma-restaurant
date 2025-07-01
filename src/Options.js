@@ -4,3 +4,5 @@ class Options {
         this.isRadio = isRadio; // Boolean
     }
 }
+
+export default Options;

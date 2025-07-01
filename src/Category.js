@@ -17,3 +17,5 @@ class Category {
         return this.meals;
     }
 }
+
+export default Category;
