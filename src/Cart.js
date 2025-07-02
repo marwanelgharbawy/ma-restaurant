@@ -8,3 +8,5 @@ class Cart {
         this.items.push(item);
     }
 }
+
+export default Cart;
