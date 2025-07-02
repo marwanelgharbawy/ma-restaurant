@@ -1,25 +1,36 @@
 import Meal from './Meal.js';
 import Category from './Category.js';
 import Choice from './Choice.js';
+import Options from './Options.js';
 import CartItem from './CartItem.js';
+import Cart from './Cart.js';
 
 // Simulate database data for meals and condiments
-// Pizza condiments is an array of 
+
+// Step 1: Choice class
+// Pizza condiments is an array of choices
 const Pepperoni = new Choice('Pepperoni', 2.99);
 const Jalapeno = new Choice('Jalapeno', 0.99);
 const Olives = new Choice('Olives', 1.49);
 const Ketchup = new Choice('Ketchup', 0.49);
 const Mustard = new Choice('Mustard', 0.49);
 
-const pizza_condiments = [Pepperoni, Jalapeno, Olives, Ketchup, Mustard];
+// Array of choice classes
+const choicesArray = [Pepperoni, Jalapeno, Olives, Ketchup, Mustard];
 
-// Create some meal instances
-const meal1 = new Meal('Maro Pizza', 'Standard pizza', pizza_condiments, 10.99);
-const meal2 = new Meal('BBQ Chicken Pizza', 'No description', pizza_condiments, 14.99);
-const meal3 = new Meal('Chicken Ranch Pizza', 'No description', pizza_condiments, 12.99);
-const meals = [meal1, meal2, meal3];
+// Step 2: Options class
+const pizzaOptions = new Options('Pizza Condiments', choicesArray, false);
 
-const pizzaCategory = new Category('Pizzas', meals);
+// Step 3: Meal class
+const meal1 = new Meal('Maro Pizza', 'Standard pizza', pizzaOptions, 10.99);
+const meal2 = new Meal('BBQ Chicken Pizza', 'No description', pizzaOptions, 14.99);
+const meal3 = new Meal('Chicken Ranch Pizza', 'No description', pizzaOptions, 12.99);
+
+// Array of meal classes
+const PizzaArray = [meal1, meal2, meal3];
+
+// Step 4: Category class
+const pizzaCategory = new Category('Pizzas', PizzaArray);
 
 // Display the meals in the pizza category
 console.log(`Category: ${pizzaCategory.name}\n\n`);
@@ -27,8 +38,10 @@ console.log('Meals:');
 pizzaCategory.meals.forEach((meal) => {
     console.log(`- ${meal.name}: ${meal.description} - $${meal.price}`);
     console.log('  Condiments:');
-    meal.options.forEach((condiment) => {
+    meal.options.choices.forEach((condiment) => {
         console.log(`  - ${condiment.name}: $${condiment.price}`);
     });
     console.log("\n\n");
 });
+
+// TODO: Simulate a shopping cart system
