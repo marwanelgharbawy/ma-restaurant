@@ -1,3 +1,3 @@
 # Ma-Restaurant
 
-A fictional full-stack application, featuring OOP backend design. 
+A full-stack web application for a fictional restaurant, featuring OOP backend design. 
