@@ -3,21 +3,22 @@ class CartItem {
     this.product = product;
     this.selected_choices = selected_choices; // A list of Choice objects
     this.quantity = quantity;
-    this.totalPrice = calculateTotalPrice();
   }
 
-  calculateTotalPrice() {
+  get totalPrice() {
     // (Base price + Extras) * Quantity
-    return (this.product.price + this.calculateExtraPrice) * this.quantity;
+    const singleItemPrice = this.product.price + this.#calculateExtrasPrice();
+    return singleItemPrice * this.quantity;
   }
 
-  // Private method
-  calculateExtraPrice() {
+  #calculateExtrasPrice() {
+    let extraPrice = 0;
     if (this.selected_choices) {
       for (const choice of this.selected_choices) {
-        singlePrice += choice.price; // Get the price of each choice
+        extraPrice += choice.price; // Get the price of each choice
       }
     }
+    return extraPrice;
   }
 }
 
