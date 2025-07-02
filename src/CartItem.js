@@ -1,7 +1,7 @@
 class CartItem {
-  constructor(product, selected_choices, quantity) {
+  constructor(product, selectedChoices, quantity) {
     this.product = product;
-    this.selected_choices = selected_choices; // A list of Choice objects
+    this.selectedChoices = selectedChoices; // A list of Choice objects
     this.quantity = quantity;
   }
 
@@ -13,8 +13,8 @@ class CartItem {
 
   #calculateExtrasPrice() {
     let extraPrice = 0;
-    if (this.selected_choices) {
-      for (const choice of this.selected_choices) {
+    if (this.selectedChoices) {
+      for (const choice of this.selectedChoices) {
         extraPrice += choice.price; // Get the price of each choice
       }
     }
