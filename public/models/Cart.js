@@ -5,11 +5,15 @@ class Cart {
     }
 
     addItem(item) {
-        this.cartItems.push(item); // Add CartItem object to the Cart object
+        // Check if the item already exists in the cart
+        const existingItemIndex = this.cartItems.findIndex(cartItem => cartItem.id === item.id);
+        if (existingItemIndex !== -1) { // Found
+            // Increment current quantity of item
+            this.cartItems[existingItemIndex].quantity += item.quantity;
+        } else {
+            this.cartItems.push(item); // Add CartItem object to the Cart object
+        }
     }
-
-    // TODO: If item already exists, increase count instead (must match condiments)
-    // Idea: Create an ID for each item containing product name/ID and selected choices 
 
     removeItem(index) {
         if (index >= 0 && index < this.cartItems.length) {
