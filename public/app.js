@@ -19,9 +19,21 @@ const cart = new Cart();
 // Populate the menu->Section with the pizza category
 for (const meal of pizzaCategory.meals) {
     // Create a div which contains meal name, description and price
-    const mealElement = document.createElement('li');
+    const mealElement = document.createElement('div');
     mealElement.textContent = `${meal.name}: ${meal.description} - $${meal.price}`;
     menuContainer.appendChild(mealElement);
+
+    // Display choices
+    const choicesElement = document.createElement('div'); // Ground of choices
+    for (const choice of meal.options.choices) {
+        const choiceElement = document.createElement('div'); // For each choice
+        choiceElement.textContent = ` - ${choice.name}: $${choice.price}`;
+        choiceElement.onclick = () => {
+            console.log(`Choice clicked: ${choice.name}`);
+        }
+        choicesElement.appendChild(choiceElement);
+    }
+    mealElement.appendChild(choicesElement);
 
     mealElement.onclick = () => {
         const cartItem = new CartItem(meal, [], 1);
@@ -37,11 +49,12 @@ function renderCart() {
     if (cart.cartItems == 0) {
         cartContainer.textContent = "Your cart is empty.";
     } else {
-        for (const item of cart.items) {
+        for (const item of cart.cartItems) {
             const cartItemElement = document.createElement('div');
-            cartItemElement.textContent = `${item.meal.name} - $${item.meal.price} x ${item.quantity}`;
+            cartItemElement.textContent = `${item.product.name} - $${item.product.price} x ${item.quantity}`;
             cartContainer.appendChild(cartItemElement);
         }
+        priceElement.textContent = `$${cart.totalPrice.toFixed(2)}`;
     }
 }
 
