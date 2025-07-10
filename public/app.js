@@ -18,28 +18,55 @@ const cart = new Cart();
 
 // Populate the menu->Section with the pizza category
 for (const meal of pizzaCategory.meals) {
-    // Create a div which contains meal name, description and price
+    // Create a div which will be a container for the base meal element and the choices element
+    const mealContainer = document.createElement('div');
+
+    // Create a div which contains meal name, description and BASE price
     const mealElement = document.createElement('div');
     mealElement.textContent = `${meal.name}: ${meal.description} - $${meal.price}`;
-    menuContainer.appendChild(mealElement);
 
-    // Display choices
-    const choicesElement = document.createElement('div'); // Ground of choices
-    for (const choice of meal.options.choices) {
-        const choiceElement = document.createElement('div'); // For each choice
-        choiceElement.textContent = ` - ${choice.name}: $${choice.price}`;
-        choiceElement.onclick = () => {
-            console.log(`Choice clicked: ${choice.name}`);
-        }
-        choicesElement.appendChild(choiceElement);
-    }
-    mealElement.appendChild(choicesElement);
+    // Create a button which will add the meal to the cart
+    const addMealButon = document.createElement('button');
+    addMealButon.textContent = "Add to Cart";
+    mealElement.appendChild(addMealButon);
 
-    mealElement.onclick = () => {
+    addMealButon.onclick = () => {
         const cartItem = new CartItem(meal, [], 1);
         cart.addItem(cartItem);
         renderCart();
     }
+
+    mealContainer.appendChild(mealElement);
+
+    // Display choices
+    const choicesElement = document.createElement('div'); // Ground of choices
+    for (const choice of meal.options.choices) {
+        const choiceContainer = document.createElement('div'); // Container for each choice
+
+        // Create a "choice selector" element
+        const choiceSelector = document.createElement('input'); // For each choice
+        if (meal.options.isRadio) {
+            choiceSelector.type = 'radio';
+        } else {
+            choiceSelector.type = 'checkbox';
+        }
+        choiceContainer.appendChild(choiceSelector);
+        
+        // Create label element for the choice
+        const choiceLabel = document.createElement('label');
+        choiceLabel.textContent = choice.name;
+        choiceContainer.appendChild(choiceLabel);
+
+
+        // choiceElement.textContent = ` - ${choice.name}: $${choice.price}`;
+        // choiceElement.onclick = () => {
+        //     console.log(`Choice clicked: ${choice.name}`);
+        // }
+        choicesElement.appendChild(choiceContainer);A
+    }
+    mealElement.appendChild(choicesElement);
+
+    menuContainer.appendChild(mealContainer);
 }
 
 function renderCart() {
