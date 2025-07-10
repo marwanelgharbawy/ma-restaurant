@@ -3,13 +3,6 @@ class CartItem {
     this.product = product;
     this.selectedChoices = selectedChoices; // A list of Choice objects
     this.quantity = quantity;
-    this.id = this.#generateID();
-  }
-
-  // Each meal has a unique ID based on its name and selected choices
-  #generateID() {
-    const choiceString = this.selectedChoices.map(choice => choice.name).sort();
-    return `${this.product.name}-${choiceString.join('-')}`;
   }
 
   get totalPrice() {
