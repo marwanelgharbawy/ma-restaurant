@@ -31,7 +31,22 @@ for (const meal of pizzaCategory.meals) {
     mealElement.appendChild(addMealButon);
 
     addMealButon.onclick = () => {
-        const cartItem = new CartItem(meal, [], 1);
+        // Get all choices within element
+        const choiceInputs = choicesElement.querySelectorAll('input');
+        console.log("Choice inputs:", choiceInputs);
+        const selectedChoices = [];
+        for (const choiceInput of choiceInputs) {
+            if (choiceInput.checked) {
+                // Get the name from the label element next to the input
+                const choiceLabel = choiceInput.nextElementSibling.textContent;
+                const choice = meal.options.choices.find(c => c.name === choiceLabel);
+                if (choice) {
+                    selectedChoices.push(choice);
+                }
+            }
+        }
+        console.log("Selected choices:", selectedChoices);
+        const cartItem = new CartItem(meal, selectedChoices, 1);
         cart.addItem(cartItem);
         renderCart();
     }
@@ -39,7 +54,7 @@ for (const meal of pizzaCategory.meals) {
     mealContainer.appendChild(mealElement);
 
     // Display choices
-    const choicesElement = document.createElement('div'); // Ground of choices
+    const choicesElement = document.createElement('div'); // Group of choices
     for (const choice of meal.options.choices) {
         const choiceContainer = document.createElement('div'); // Container for each choice
 
@@ -51,18 +66,13 @@ for (const meal of pizzaCategory.meals) {
             choiceSelector.type = 'checkbox';
         }
         choiceContainer.appendChild(choiceSelector);
-        
+
         // Create label element for the choice
         const choiceLabel = document.createElement('label');
         choiceLabel.textContent = choice.name;
         choiceContainer.appendChild(choiceLabel);
 
-
-        // choiceElement.textContent = ` - ${choice.name}: $${choice.price}`;
-        // choiceElement.onclick = () => {
-        //     console.log(`Choice clicked: ${choice.name}`);
-        // }
-        choicesElement.appendChild(choiceContainer);A
+        choicesElement.appendChild(choiceContainer);
     }
     mealElement.appendChild(choicesElement);
 
